@@ -17,7 +17,7 @@ const SubmitButton = styled.button`
   }
 
   &:disabled {
-    background-color: ${(props) => props.theme.buttonDisabledBackground};
+    opacity: 70%;
   }
 
   & svg {

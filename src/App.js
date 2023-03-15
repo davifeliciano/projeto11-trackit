@@ -8,6 +8,7 @@ import TodayContext from "./contexts/TodayContext";
 import Login from "./routes/Login";
 import Cadastro from "./routes/Cadastro";
 import Hoje from "./routes/Hoje";
+import Habitos from "./routes/Habitos";
 
 export default function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -25,6 +26,10 @@ export default function App() {
     {
       path: "hoje",
       element: <Hoje setToday={setToday} />,
+    },
+    {
+      path: "habitos",
+      element: <Habitos />,
     },
   ]);
 
