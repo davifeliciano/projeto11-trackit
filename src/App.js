@@ -4,20 +4,27 @@ import { ThemeProvider } from "styled-components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState } from "react";
 import UserContext from "./contexts/UserContext";
+import TodayContext from "./contexts/TodayContext";
 import Login from "./routes/Login";
 import Cadastro from "./routes/Cadastro";
+import Hoje from "./routes/Hoje";
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [today, setToday] = useState([]);
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Login setUser={setUser} />,
+      element: <Login user={user} setUser={setUser} />,
     },
     {
       path: "cadastro",
       element: <Cadastro />,
+    },
+    {
+      path: "hoje",
+      element: <Hoje setToday={setToday} />,
     },
   ]);
 
@@ -26,7 +33,9 @@ export default function App() {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <UserContext.Provider value={user}>
-          <RouterProvider router={router} />
+          <TodayContext.Provider value={today}>
+            <RouterProvider router={router} />
+          </TodayContext.Provider>
         </UserContext.Provider>
       </ThemeProvider>
     </>

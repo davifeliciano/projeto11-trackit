@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
@@ -8,11 +8,15 @@ import Logo from "../components/Logo";
 import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 
-export default function Login({ setUser }) {
+export default function Login({ user, setUser }) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (user !== null) navigate("/hoje");
+  }, [user, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,7 +26,9 @@ export default function Login({ setUser }) {
     axios
       .post("auth/login", body)
       .then((response) => {
-        setUser(response.data);
+        const user = response.data;
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
         navigate("/hoje");
       })
       .catch((error) => {
