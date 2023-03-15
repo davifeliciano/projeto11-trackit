@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState } from "react";
 import UserContext from "./contexts/UserContext";
 import Login from "./routes/Login";
+import Cadastro from "./routes/Cadastro";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -13,6 +14,10 @@ export default function App() {
     {
       path: "/",
       element: <Login setUser={setUser} />,
+    },
+    {
+      path: "cadastro",
+      element: <Cadastro />,
     },
   ]);
 
