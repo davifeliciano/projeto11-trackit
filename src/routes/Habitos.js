@@ -106,6 +106,10 @@ export default function Habitos({ setToday }) {
   }
 
   function deleteHabit(habitId) {
+    if (!window.confirm("Deseja realmente deletar este hábito?")) {
+      return;
+    }
+
     const config = { headers: { Authorization: `Bearer ${user.token}` } };
     axios
       .delete(`habits/${habitId}`, config)
