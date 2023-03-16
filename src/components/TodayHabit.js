@@ -27,10 +27,10 @@ export default function TodayHabit({ habit, setIsUpdated }) {
   }
 
   return (
-    <Container>
+    <Container data-test="today-habit-container">
       <Content>
-        <h3>{habit.name}</h3>
-        <p>
+        <h3 data-test="today-habit-name">{habit.name}</h3>
+        <p data-test="today-habit-sequence">
           Sequência atual:{" "}
           <Detail done={habit.done}>
             {`${habit.currentSequence} dia${
@@ -38,7 +38,7 @@ export default function TodayHabit({ habit, setIsUpdated }) {
             }`}
           </Detail>
         </p>
-        <p>
+        <p data-test="today-habit-record">
           Seu recorde:{" "}
           <Detail done={habit.currentSequence === habit.highestSequence}>
             {`${habit.highestSequence} dia${
@@ -47,7 +47,11 @@ export default function TodayHabit({ habit, setIsUpdated }) {
           </Detail>
         </p>
       </Content>
-      <CheckmarkButton done={habit.done} onClick={toggleDone}>
+      <CheckmarkButton
+        done={habit.done}
+        onClick={toggleDone}
+        data-test="today-habit-check-btn"
+      >
         <BsCheck />
       </CheckmarkButton>
     </Container>

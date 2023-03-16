@@ -5,7 +5,7 @@ import UserContext from "../contexts/UserContext";
 export default function Header() {
   const user = useContext(UserContext);
   return (
-    <HeaderContainer>
+    <HeaderContainer data-test="header">
       <h1>Trackit</h1>
       {user ? (
         <img src={user.image} alt={`Imagem de Perfil de ${user.name}`} />

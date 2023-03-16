@@ -53,6 +53,7 @@ export default function Login({ setUser }) {
           disabled={isLoading}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          data-test="email-input"
         />
         <Input
           required
@@ -62,12 +63,15 @@ export default function Login({ setUser }) {
           disabled={isLoading}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          data-test="password-input"
         />
-        <SubmitButton type="submit" disabled={isLoading}>
+        <SubmitButton type="submit" disabled={isLoading} data-test="login-btn">
           {isLoading ? <ThreeDots height="45" color="white" /> : "Entrar"}
         </SubmitButton>
       </Form>
-      <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
+      <Link to="/cadastro" data-test="signup-link">
+        Não tem uma conta? Cadastre-se!
+      </Link>
     </FormContainer>
   );
 }

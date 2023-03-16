@@ -131,7 +131,10 @@ export default function Habitos({ setToday }) {
         <Content>
           <ContentHeader>
             <h2>Meus Hábitos</h2>
-            <button onClick={() => setDisplayHabitForm(true)}>
+            <button
+              onClick={() => setDisplayHabitForm(true)}
+              data-test="habit-create-btn"
+            >
               <BsPlus />
             </button>
           </ContentHeader>

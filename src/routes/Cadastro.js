@@ -47,6 +47,7 @@ export default function Cadastro() {
           disabled={isLoading}
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
+          data-test="email-input"
         />
         <Input
           required
@@ -56,6 +57,7 @@ export default function Cadastro() {
           disabled={isLoading}
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
+          data-test="password-input"
         />
         <Input
           required
@@ -65,6 +67,7 @@ export default function Cadastro() {
           disabled={isLoading}
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
+          data-test="user-name-input"
         />
         <Input
           required
@@ -74,12 +77,15 @@ export default function Cadastro() {
           disabled={isLoading}
           value={form.image}
           onChange={(e) => setForm({ ...form, image: e.target.value })}
+          data-test="user-image-input"
         />
-        <SubmitButton type="submit" disabled={isLoading}>
+        <SubmitButton type="submit" disabled={isLoading} data-test="signup-btn">
           {isLoading ? <ThreeDots height="45" color="white" /> : "Cadastrar"}
         </SubmitButton>
       </Form>
-      <Link to="/">Já tem uma conta? Faça login!</Link>
+      <Link to="/" data-test="login-link">
+        Já tem uma conta? Faça login!
+      </Link>
     </FormContainer>
   );
 }

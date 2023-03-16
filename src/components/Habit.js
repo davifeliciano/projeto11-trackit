@@ -16,10 +16,16 @@ export default function Habit({ habit, deleteHabit }) {
           checked={habit.days.includes(index)}
           disabled={true}
         />
-        <CheckboxLabel htmlFor={`checkbox_${habit.id}_${weekday}`}>
+        <CheckboxLabel
+          htmlFor={`checkbox_${habit.id}_${weekday}`}
+          data-test="habit-day"
+        >
           {weekday[0]}
         </CheckboxLabel>
-        <DeleteButton onClick={() => deleteHabit(habit.id)}>
+        <DeleteButton
+          onClick={() => deleteHabit(habit.id)}
+          data-test="habit-delete-btn"
+        >
           <BsTrash />
         </DeleteButton>
       </li>
@@ -27,8 +33,8 @@ export default function Habit({ habit, deleteHabit }) {
   }
 
   return (
-    <Container>
-      <h3>{habit.name}</h3>
+    <Container data-test="habit-container">
+      <h3 data-test="habit-name">{habit.name}</h3>
       <CheckboxesContainer>
         {dayjs.weekdays().map((weekday, index) => (
           <Checkbox key={weekday} weekday={weekday} index={index} />

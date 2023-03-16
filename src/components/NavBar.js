@@ -10,6 +10,7 @@ function navLinkClassName({ isActive }) {
 }
 
 export default function NavBar() {
+  const today = useContext(TodayContext);
   const progressBarStyles = {
     pathColor: "white",
     trailColor: "transparent",
@@ -17,14 +18,21 @@ export default function NavBar() {
     textSize: "1.8rem",
     backgroundColor: "transparent",
   };
-  const today = useContext(TodayContext);
 
   return (
-    <NavBarContainer>
-      <NavBarLink className={navLinkClassName} to="/habitos">
+    <NavBarContainer data-test="menu">
+      <NavBarLink
+        className={navLinkClassName}
+        to="/habitos"
+        data-test="habit-link"
+      >
         Hábitos
       </NavBarLink>
-      <ProgressBarLink className={navLinkClassName} to="/hoje">
+      <ProgressBarLink
+        className={navLinkClassName}
+        to="/hoje"
+        data-test="today-link"
+      >
         <CircularProgressbar
           value={today.filter((habit) => habit.done).length}
           maxValue={today.length || 1}
@@ -34,7 +42,11 @@ export default function NavBar() {
           styles={buildStyles(progressBarStyles)}
         />
       </ProgressBarLink>
-      <NavBarLink className={navLinkClassName} to="/historico">
+      <NavBarLink
+        className={navLinkClassName}
+        to="/historico"
+        data-test="history-link"
+      >
         Histórico
       </NavBarLink>
     </NavBarContainer>

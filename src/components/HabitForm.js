@@ -30,7 +30,7 @@ export default function HabitForm({
             setSelectedDays({ ...selectedDays, [index]: !selectedDays[index] })
           }
         />
-        <CheckboxLabel htmlFor={`checkbox_${weekday}`}>
+        <CheckboxLabel htmlFor={`checkbox_${weekday}`} data-test="habit-day">
           {weekday[0]}
         </CheckboxLabel>
       </li>
@@ -38,7 +38,11 @@ export default function HabitForm({
   }
 
   return (
-    <Form displayHabitForm={displayHabitForm} onSubmit={handleSubmit}>
+    <Form
+      displayHabitForm={displayHabitForm}
+      onSubmit={handleSubmit}
+      data-test="habit-create-container"
+    >
       <Input
         required
         type="text"
@@ -46,6 +50,7 @@ export default function HabitForm({
         disabled={isLoading}
         value={habitName}
         onChange={(e) => setHabitName(e.target.value)}
+        data-test="habit-name-input"
       />
       <CheckboxesContainer>
         {dayjs.weekdays().map((weekday, index) => (
@@ -57,10 +62,11 @@ export default function HabitForm({
           type="button"
           disabled={isLoading}
           onClick={() => setDisplayHabitForm(false)}
+          data-test="habit-create-cancel-btn"
         >
           Cancelar
         </CancelButton>
-        <SubmitButton type="submit">
+        <SubmitButton type="submit" data-test="habit-create-save-btn">
           {isLoading ? <ThreeDots height="10" color="white" /> : "Salvar"}
         </SubmitButton>
       </ButtonsContainer>

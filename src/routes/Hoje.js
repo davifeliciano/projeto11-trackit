@@ -62,9 +62,9 @@ export default function Hoje({ setToday }) {
       <PageContent>
         <Content>
           <ContentHeader today={today}>
-            <h2>{getDateString()}</h2>
+            <h2 data-test="today">{getDateString()}</h2>
             {
-              <span>
+              <span data-test="today-counter">
                 {today.length === 0 || today.every((habit) => !habit.done)
                   ? "Nenhum hábito concluído ainda"
                   : `${getProgressInPercent()}% dos hábitos concluídos`}
