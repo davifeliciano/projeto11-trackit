@@ -1,7 +1,7 @@
 import axios from "axios";
 import styled from "styled-components";
 import dayjs from "dayjs";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import TodayContext from "../contexts/TodayContext";
@@ -9,15 +9,22 @@ import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import PageContainer from "../components/PageContainer";
 import PageContent from "../components/PageContent";
+import HabitsContainer from "../components/HabitsContainer";
+import TodayHabit from "../components/TodayHabit";
 
 export default function Hoje({ setToday }) {
+  const navigate = useNavigate();
   const user = useContext(UserContext);
   const today = useContext(TodayContext);
-  const navigate = useNavigate();
+  const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
     if (user === null) {
       navigate("/");
+      return;
+    }
+
+    if (isUpdated === true) {
       return;
     }
 
@@ -27,13 +34,14 @@ export default function Hoje({ setToday }) {
       .then((response) => {
         console.log(response);
         setToday(response.data);
+        setIsUpdated(true);
       })
       .catch((error) => {
         console.error(error);
         const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
         alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
       });
-  }, []);
+  }, [isUpdated]);
 
   function getProgressInPercent() {
     const progress = today.filter((habit) => habit.done).length / today.length;
@@ -55,6 +63,15 @@ export default function Hoje({ setToday }) {
               </span>
             }
           </ContentHeader>
+          <HabitsContainer>
+            {today.map((habit) => (
+              <TodayHabit
+                key={habit.id}
+                habit={habit}
+                setIsUpdated={setIsUpdated}
+              />
+            ))}
+          </HabitsContainer>
         </Content>
       </PageContent>
       <NavBar />

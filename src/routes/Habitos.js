@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import Header from "../components/Header";
 import HabitForm from "../components/HabitForm";
+import HabitsContainer from "../components/HabitsContainer";
 import NavBar from "../components/NavBar";
 import PageContainer from "../components/PageContainer";
 import PageContent from "../components/PageContent";
@@ -140,16 +141,18 @@ export default function Habitos({ setToday }) {
             setSelectedDays={setSelectedDays}
             handleSubmit={handleSubmit}
           />
-          {habits.length !== 0 ? (
-            habits.map((habit) => (
-              <Habit key={habit.id} habit={habit} deleteHabit={deleteHabit} />
-            ))
-          ) : isUpdated ? (
-            <NoHabitMessage>
-              Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
-              para começar a trackear!
-            </NoHabitMessage>
-          ) : null}
+          <HabitsContainer>
+            {habits.length !== 0 ? (
+              habits.map((habit) => (
+                <Habit key={habit.id} habit={habit} deleteHabit={deleteHabit} />
+              ))
+            ) : isUpdated ? (
+              <NoHabitMessage>
+                Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
+                para começar a trackear!
+              </NoHabitMessage>
+            ) : null}
+          </HabitsContainer>
         </Content>
       </PageContent>
       <NavBar />

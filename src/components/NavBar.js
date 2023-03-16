@@ -1,7 +1,9 @@
+import styled from "styled-components";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import TodayContext from "../contexts/TodayContext";
 
 function navLinkClassName({ isActive }) {
   return isActive ? "active" : "";
@@ -15,6 +17,7 @@ export default function NavBar() {
     textSize: "1.8rem",
     backgroundColor: "transparent",
   };
+  const today = useContext(TodayContext);
 
   return (
     <NavBarContainer>
@@ -23,7 +26,8 @@ export default function NavBar() {
       </NavBarLink>
       <ProgressBarLink className={navLinkClassName} to="/hoje">
         <CircularProgressbar
-          value={34}
+          value={today.filter((habit) => habit.done).length}
+          maxValue={today.length}
           text="Hoje"
           background={true}
           backgroundPadding={6}
