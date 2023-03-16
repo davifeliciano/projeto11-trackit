@@ -51,6 +51,18 @@ export default function Habitos({ setToday }) {
         const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
         alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
       });
+
+    axios
+      .get("habits/today", config)
+      .then((response) => {
+        console.log(response);
+        setToday(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
+        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
+      });
   }, [isUpdated]);
 
   function handleSubmit(e) {
@@ -85,18 +97,6 @@ export default function Habitos({ setToday }) {
         setHabitName("");
         setSelectedDays(selectedDaysInitValue);
         setIsUpdated(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
-      });
-
-    axios
-      .get("habits/today", config)
-      .then((response) => {
-        console.log(response);
-        setToday(response.data);
       })
       .catch((error) => {
         console.error(error);

@@ -17,7 +17,7 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Login user={user} setUser={setUser} />,
+      element: <Login setUser={setUser} />,
     },
     {
       path: "cadastro",

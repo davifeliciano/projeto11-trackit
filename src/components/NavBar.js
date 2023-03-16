@@ -27,7 +27,7 @@ export default function NavBar() {
       <ProgressBarLink className={navLinkClassName} to="/hoje">
         <CircularProgressbar
           value={today.filter((habit) => habit.done).length}
-          maxValue={today.length}
+          maxValue={today.length || 1}
           text="Hoje"
           background={true}
           backgroundPadding={6}
