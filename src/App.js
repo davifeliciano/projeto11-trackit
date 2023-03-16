@@ -9,6 +9,7 @@ import Login from "./routes/Login";
 import Cadastro from "./routes/Cadastro";
 import Hoje from "./routes/Hoje";
 import Habitos from "./routes/Habitos";
+import Historico from "./routes/Historico";
 
 export default function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -30,6 +31,10 @@ export default function App() {
     {
       path: "habitos",
       element: <Habitos setToday={setToday} />,
+    },
+    {
+      path: "historico",
+      element: <Historico />,
     },
   ]);
 
