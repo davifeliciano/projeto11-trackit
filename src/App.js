@@ -29,7 +29,7 @@ export default function App() {
     },
     {
       path: "habitos",
-      element: <Habitos />,
+      element: <Habitos setToday={setToday} />,
     },
   ]);
 

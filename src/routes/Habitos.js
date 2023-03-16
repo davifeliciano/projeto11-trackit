@@ -1,5 +1,6 @@
 import axios from "axios";
 import styled from "styled-components";
+import { BsPlus } from "react-icons/bs";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
@@ -8,6 +9,7 @@ import HabitForm from "../components/HabitForm";
 import NavBar from "../components/NavBar";
 import PageContainer from "../components/PageContainer";
 import PageContent from "../components/PageContent";
+import Habit from "../components/Habit";
 
 export default function Habitos({ setToday }) {
   const navigate = useNavigate();
@@ -21,13 +23,34 @@ export default function Habitos({ setToday }) {
   );
 
   const [selectedDays, setSelectedDays] = useState(selectedDaysInitValue);
+  const [isUpdated, setIsUpdated] = useState(false);
+  const [habits, setHabits] = useState([]);
 
   useEffect(() => {
     if (user === null) {
       navigate("/");
       return;
     }
-  });
+
+    if (isUpdated === true) {
+      return;
+    }
+
+    const config = { headers: { Authorization: `Bearer ${user.token}` } };
+
+    axios
+      .get("habits", config)
+      .then((response) => {
+        console.log(response);
+        setHabits(response.data);
+        setIsUpdated(true);
+      })
+      .catch((error) => {
+        console.error(error);
+        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
+        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
+      });
+  }, [isUpdated]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -60,6 +83,34 @@ export default function Habitos({ setToday }) {
         setDisplayHabitForm(false);
         setHabitName("");
         setSelectedDays(selectedDaysInitValue);
+        setIsUpdated(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
+        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
+      });
+
+    axios
+      .get("habits/today", config)
+      .then((response) => {
+        console.log(response);
+        setToday(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
+        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
+      });
+  }
+
+  function deleteHabit(habitId) {
+    const config = { headers: { Authorization: `Bearer ${user.token}` } };
+    axios
+      .delete(`habits/${habitId}`, config)
+      .then((response) => {
+        console.log(response);
+        setIsUpdated(false);
       })
       .catch((error) => {
         console.error(error);
@@ -75,7 +126,9 @@ export default function Habitos({ setToday }) {
         <Content>
           <ContentHeader>
             <h2>Meus Hábitos</h2>
-            <button onClick={() => setDisplayHabitForm(true)}>+</button>
+            <button onClick={() => setDisplayHabitForm(true)}>
+              <BsPlus />
+            </button>
           </ContentHeader>
           <HabitForm
             isLoading={isLoading}
@@ -87,6 +140,16 @@ export default function Habitos({ setToday }) {
             setSelectedDays={setSelectedDays}
             handleSubmit={handleSubmit}
           />
+          {habits.length !== 0 ? (
+            habits.map((habit) => (
+              <Habit key={habit.id} habit={habit} deleteHabit={deleteHabit} />
+            ))
+          ) : isUpdated ? (
+            <NoHabitMessage>
+              Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
+              para começar a trackear!
+            </NoHabitMessage>
+          ) : null}
         </Content>
       </PageContent>
       <NavBar />
@@ -122,4 +185,9 @@ const ContentHeader = styled.header`
     color: ${(props) => props.theme.foreground};
     font-size: 2.6rem;
   }
+`;
+
+const NoHabitMessage = styled.span`
+  color: ${(props) => props.theme.font};
+  font-size: 1.8rem;
 `;

@@ -2,6 +2,9 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 import { ThreeDots } from "react-loader-spinner";
 import Input from "./Input";
+import CheckboxesContainer from "./CheckboxContainer";
+import CheckboxInput from "./CheckboxInput";
+import CheckboxLabel from "./CheckboxLabel";
 import StyledSubmitButton from "../components/SubmitButton";
 
 export default function HabitForm({
@@ -27,7 +30,9 @@ export default function HabitForm({
             setSelectedDays({ ...selectedDays, [index]: !selectedDays[index] })
           }
         />
-        <Label htmlFor={`checkbox_${weekday}`}>{weekday[0]}</Label>
+        <CheckboxLabel htmlFor={`checkbox_${weekday}`}>
+          {weekday[0]}
+        </CheckboxLabel>
       </li>
     );
   }
@@ -42,11 +47,11 @@ export default function HabitForm({
         value={habitName}
         onChange={(e) => setHabitName(e.target.value)}
       />
-      <Checkboxes>
+      <CheckboxesContainer>
         {dayjs.weekdays().map((weekday, index) => (
           <Checkbox key={weekday} weekday={weekday} index={index} />
         ))}
-      </Checkboxes>
+      </CheckboxesContainer>
       <ButtonsContainer>
         <CancelButton
           type="button"
@@ -69,43 +74,6 @@ const Form = styled.form`
   padding: 1.8rem;
   background-color: ${(props) => props.theme.foreground};
   border-radius: 5px;
-`;
-
-const Checkboxes = styled.ul`
-  display: flex;
-  gap: 4px;
-  margin-top: 8px;
-`;
-
-const Label = styled.label`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid ${(props) => props.theme.formBorder};
-  border-radius: 5px;
-  color: ${(props) => props.theme.formBorder};
-  font-size: 2rem;
-  text-transform: uppercase;
-  user-select: none;
-
-  input[type="checkbox"]:checked + & {
-    background-color: ${(props) => props.theme.formBorder};
-    color: ${(props) => props.theme.foreground};
-  }
-`;
-
-const CheckboxInput = styled.input`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
 `;
 
 const ButtonsContainer = styled.div`
