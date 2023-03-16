@@ -87,6 +87,7 @@ const Detail = styled.span`
 `;
 
 const CheckmarkButton = styled.button`
+  min-width: 7rem;
   width: 7rem;
   height: 7rem;
   padding: 0;

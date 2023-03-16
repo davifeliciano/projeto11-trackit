@@ -31,10 +31,11 @@ const HeaderContainer = styled.header`
   }
 
   & img {
+    margin-block: 1rem;
     height: 5rem;
-    width: 5rem;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 5rem;
+    border-radius: 100%;
     user-select: none;
     -webkit-user-drag: none;
   }
