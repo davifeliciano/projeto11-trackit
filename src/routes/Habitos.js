@@ -173,6 +173,7 @@ const ContentHeader = styled.header`
   & h2 {
     color: ${(props) => props.theme.main};
     font-size: 2.2rem;
+    font-weight: 400;
   }
 
   & button {

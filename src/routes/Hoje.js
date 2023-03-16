@@ -43,6 +43,14 @@ export default function Hoje({ setToday }) {
       });
   }, [isUpdated]);
 
+  function getDateString() {
+    const date = dayjs();
+    const weekday = date.format("dddd").split("-").at(0);
+    const capitalizedWeekday =
+      weekday.charAt(0).toUpperCase() + weekday.slice(1);
+    return `${capitalizedWeekday}, ${date.format("DD/MM")}`;
+  }
+
   function getProgressInPercent() {
     const progress = today.filter((habit) => habit.done).length / today.length;
     return parseInt(100 * progress);
@@ -54,7 +62,7 @@ export default function Hoje({ setToday }) {
       <PageContent>
         <Content>
           <ContentHeader today={today}>
-            <h2>{dayjs().format("dddd, DD/MM")}</h2>
+            <h2>{getDateString()}</h2>
             {
               <span>
                 {today.length === 0 || today.every((habit) => !habit.done)
@@ -89,6 +97,7 @@ const ContentHeader = styled.header`
   & h2 {
     color: ${(props) => props.theme.main};
     font-size: 2.2rem;
+    font-weight: 400;
   }
 
   & span {

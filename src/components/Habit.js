@@ -50,6 +50,7 @@ const Container = styled.div`
   & h3 {
     color: ${(props) => props.theme.font};
     font-size: 2rem;
+    font-weight: 400;
   }
 `;
 

@@ -8,7 +8,7 @@ const FormContainer = styled.div`
   gap: 3rem;
   margin-block: 8rem;
 
-  & a {
+  && a {
     color: ${(props) => props.theme.secondary};
     font-size: 1.4rem;
     text-decoration: underline;
