@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BsCheck } from "react-icons/bs";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
+import errorHandler from "../utils/errorHandler";
 
 export default function TodayHabit({ habit, setIsUpdated }) {
   const user = useContext(UserContext);
@@ -19,11 +20,7 @@ export default function TodayHabit({ habit, setIsUpdated }) {
         console.log(response);
         setIsUpdated(false);
       })
-      .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
-      });
+      .catch(errorHandler);
   }
 
   return (

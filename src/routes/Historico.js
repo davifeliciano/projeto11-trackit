@@ -12,6 +12,7 @@ import PageContent from "../components/PageContent";
 import HabitsContainer from "../components/HabitsContainer";
 import HistoryHabit from "../components/HistoryHabit";
 import NavBar from "../components/NavBar";
+import errorHandler from "../utils/errorHandler";
 
 export default function Historico() {
   const navigate = useNavigate();
@@ -33,11 +34,7 @@ export default function Historico() {
         console.log(response);
         setHistory(response.data);
       })
-      .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
-      });
+      .catch(errorHandler);
   }, []);
 
   function getHabitsByDate(date) {

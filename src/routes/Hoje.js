@@ -11,6 +11,7 @@ import PageContainer from "../components/PageContainer";
 import PageContent from "../components/PageContent";
 import HabitsContainer from "../components/HabitsContainer";
 import TodayHabit from "../components/TodayHabit";
+import errorHandler from "../utils/errorHandler";
 
 export default function Hoje({ setToday }) {
   const navigate = useNavigate();
@@ -36,11 +37,7 @@ export default function Hoje({ setToday }) {
         setToday(response.data);
         setIsUpdated(true);
       })
-      .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
-      });
+      .catch(errorHandler);
   }, [isUpdated]);
 
   function getDateString() {

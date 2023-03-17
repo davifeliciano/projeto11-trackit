@@ -8,6 +8,7 @@ import Form from "../components/Form";
 import Logo from "../components/Logo";
 import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
+import errorHandler from "../utils/errorHandler";
 
 export default function Login({ setUser }) {
   const navigate = useNavigate();
@@ -34,10 +35,8 @@ export default function Login({ setUser }) {
         navigate("/hoje");
       })
       .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
         setIsLoading(false);
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
+        errorHandler(error);
       });
   }
 

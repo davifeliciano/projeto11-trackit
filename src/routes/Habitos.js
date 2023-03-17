@@ -11,6 +11,7 @@ import NavBar from "../components/NavBar";
 import PageContainer from "../components/PageContainer";
 import PageContent from "../components/PageContent";
 import Habit from "../components/Habit";
+import errorHandler from "../utils/errorHandler";
 
 export default function Habitos({ setToday }) {
   const navigate = useNavigate();
@@ -46,11 +47,7 @@ export default function Habitos({ setToday }) {
         setHabits(response.data);
         setIsUpdated(true);
       })
-      .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
-      });
+      .catch(errorHandler);
 
     axios
       .get("habits/today", config)
@@ -58,11 +55,7 @@ export default function Habitos({ setToday }) {
         console.log(response);
         setToday(response.data);
       })
-      .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
-      });
+      .catch(errorHandler);
   }, [isUpdated]);
 
   function handleSubmit(e) {
@@ -98,11 +91,7 @@ export default function Habitos({ setToday }) {
         setSelectedDays(selectedDaysInitValue);
         setIsUpdated(false);
       })
-      .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
-      });
+      .catch(errorHandler);
   }
 
   function deleteHabit(habitId) {
@@ -117,11 +106,7 @@ export default function Habitos({ setToday }) {
         console.log(response);
         setIsUpdated(false);
       })
-      .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
-      });
+      .catch(errorHandler);
   }
 
   return (

@@ -7,6 +7,7 @@ import Logo from "../components/Logo";
 import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 import { Link, useNavigate } from "react-router-dom";
+import errorHandler from "../utils/errorHandler";
 
 export default function Cadastro() {
   const navigate = useNavigate();
@@ -28,10 +29,8 @@ export default function Cadastro() {
         navigate("/");
       })
       .catch((error) => {
-        console.error(error);
-        const errorMessage = `Erro ${error.response.status} : ${error.response.statusText} : ${error.response.data.message}`;
         setIsLoading(false);
-        alert(`Algo deu errado! Por favor, tente novamente\n\n${errorMessage}`);
+        errorHandler(error);
       });
   }
 
