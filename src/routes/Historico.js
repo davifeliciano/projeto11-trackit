@@ -78,13 +78,14 @@ export default function Historico() {
           <ContentHeader>
             <h2>Histórico</h2>
           </ContentHeader>
-          <StyledCalendar
-            tileClassName={tileClassName}
-            onClickDay={onClickDay}
-            onChange={setDate}
-            value={date}
-            data-test="calendar"
-          />
+          <CalendarContainer data-test="calendar">
+            <StyledCalendar
+              tileClassName={tileClassName}
+              onClickDay={onClickDay}
+              onChange={setDate}
+              value={date}
+            />
+          </CalendarContainer>
           <HabitsContainer>{getHistoryHabits()}</HabitsContainer>
         </Content>
       </PageContent>
@@ -112,7 +113,11 @@ const ContentHeader = styled.header`
   }
 `;
 
-const StyledCalendar = styled(Calendar)`
+const CalendarContainer = styled.div`
+  align-self: center;
+`;
+
+const StyledCalendar = styled(Calendar).attrs({ "data-test": "calendar" })`
   && {
     padding: 5px;
     border: none;
