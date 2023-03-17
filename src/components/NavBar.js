@@ -21,13 +21,15 @@ export default function NavBar() {
 
   return (
     <NavBarContainer data-test="menu">
-      <NavBarLink
-        className={navLinkClassName}
-        to="/habitos"
-        data-test="habit-link"
-      >
-        Hábitos
-      </NavBarLink>
+      <NavBarLinkContainer>
+        <NavBarLink
+          className={navLinkClassName}
+          to="/habitos"
+          data-test="habit-link"
+        >
+          Hábitos
+        </NavBarLink>
+      </NavBarLinkContainer>
       <ProgressBarLink
         className={navLinkClassName}
         to="/hoje"
@@ -42,13 +44,15 @@ export default function NavBar() {
           styles={buildStyles(progressBarStyles)}
         />
       </ProgressBarLink>
-      <NavBarLink
-        className={navLinkClassName}
-        to="/historico"
-        data-test="history-link"
-      >
-        Histórico
-      </NavBarLink>
+      <NavBarLinkContainer>
+        <NavBarLink
+          className={navLinkClassName}
+          to="/historico"
+          data-test="history-link"
+        >
+          Histórico
+        </NavBarLink>
+      </NavBarLinkContainer>
     </NavBarContainer>
   );
 }
@@ -65,6 +69,12 @@ const NavBarContainer = styled.nav`
     color: ${(props) => props.theme.secondary};
     font-size: 1.8rem;
   }
+`;
+
+const NavBarLinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 10rem;
 `;
 
 const NavBarLink = styled(NavLink)`
