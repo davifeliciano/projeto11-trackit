@@ -13,6 +13,7 @@ const theme = {
   checkmark: "#ebebeb",
   checkmarkBorder: "#e7e7e7",
   done: "#8fc549",
+  notDone: "#ea5766",
 };
 
 export default theme;
