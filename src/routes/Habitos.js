@@ -11,6 +11,7 @@ import NavBar from "../components/NavBar";
 import PageContainer from "../components/PageContainer";
 import PageContent from "../components/PageContent";
 import Habit from "../components/Habit";
+import HabitLoader from "../components/HabitLoader";
 import errorHandler from "../utils/errorHandler";
 
 export default function Habitos({ setToday }) {
@@ -26,6 +27,7 @@ export default function Habitos({ setToday }) {
 
   const [selectedDays, setSelectedDays] = useState(selectedDaysInitValue);
   const [isUpdated, setIsUpdated] = useState(false);
+  const [displayHabitLoader, setDisplayHabitLoader] = useState(true);
   const [habits, setHabits] = useState([]);
 
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function Habitos({ setToday }) {
         console.log(response);
         setHabits(response.data);
         setIsUpdated(true);
+        setDisplayHabitLoader(false);
       })
       .catch(errorHandler);
 
@@ -78,6 +81,8 @@ export default function Habitos({ setToday }) {
     }
 
     setIsLoading(true);
+    setDisplayHabitLoader(true);
+
     const body = { name, days };
     const config = { headers: { Authorization: `Bearer ${user.token}` } };
 
@@ -109,6 +114,25 @@ export default function Habitos({ setToday }) {
       .catch(errorHandler);
   }
 
+  function getHabits() {
+    if (habits.length !== 0) {
+      return habits.map((habit) => (
+        <Habit key={habit.id} habit={habit} deleteHabit={deleteHabit} />
+      ));
+    }
+
+    if (isUpdated === true) {
+      return (
+        <NoHabitMessage>
+          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+          começar a trackear!
+        </NoHabitMessage>
+      );
+    }
+
+    return null;
+  }
+
   return (
     <PageContainer>
       <Header />
@@ -134,16 +158,8 @@ export default function Habitos({ setToday }) {
             handleSubmit={handleSubmit}
           />
           <HabitsContainer>
-            {habits.length !== 0 ? (
-              habits.map((habit) => (
-                <Habit key={habit.id} habit={habit} deleteHabit={deleteHabit} />
-              ))
-            ) : isUpdated ? (
-              <NoHabitMessage>
-                Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
-                para começar a trackear!
-              </NoHabitMessage>
-            ) : null}
+            {getHabits()}
+            {displayHabitLoader && <HabitLoader />}
           </HabitsContainer>
         </Content>
       </PageContent>
