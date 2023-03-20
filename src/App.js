@@ -11,39 +11,39 @@ import Hoje from "./routes/Hoje";
 import Habitos from "./routes/Habitos";
 import Historico from "./routes/Historico";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "cadastro",
+    element: <Cadastro />,
+  },
+  {
+    path: "hoje",
+    element: <Hoje />,
+  },
+  {
+    path: "habitos",
+    element: <Habitos />,
+  },
+  {
+    path: "historico",
+    element: <Historico />,
+  },
+]);
+
 export default function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [today, setToday] = useState([]);
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Login setUser={setUser} />,
-    },
-    {
-      path: "cadastro",
-      element: <Cadastro />,
-    },
-    {
-      path: "hoje",
-      element: <Hoje setToday={setToday} />,
-    },
-    {
-      path: "habitos",
-      element: <Habitos setToday={setToday} />,
-    },
-    {
-      path: "historico",
-      element: <Historico />,
-    },
-  ]);
 
   return (
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <UserContext.Provider value={user}>
-          <TodayContext.Provider value={today}>
+        <UserContext.Provider value={{ user, setUser }}>
+          <TodayContext.Provider value={{ today, setToday }}>
             <RouterProvider router={router} />
           </TodayContext.Provider>
         </UserContext.Provider>

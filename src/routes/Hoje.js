@@ -13,10 +13,10 @@ import HabitsContainer from "../components/HabitsContainer";
 import TodayHabit from "../components/TodayHabit";
 import errorHandler from "../utils/errorHandler";
 
-export default function Hoje({ setToday }) {
+export default function Hoje() {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
-  const today = useContext(TodayContext);
+  const { user } = useContext(UserContext);
+  const { today, setToday } = useContext(TodayContext);
   const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {

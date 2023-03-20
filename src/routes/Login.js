@@ -10,9 +10,9 @@ import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 import errorHandler from "../utils/errorHandler";
 
-export default function Login({ setUser }) {
+export default function Login() {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

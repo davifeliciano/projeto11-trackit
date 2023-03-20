@@ -10,7 +10,7 @@ function navLinkClassName({ isActive }) {
 }
 
 export default function NavBar() {
-  const today = useContext(TodayContext);
+  const { today } = useContext(TodayContext);
   const progressBarStyles = {
     pathColor: "white",
     trailColor: "transparent",

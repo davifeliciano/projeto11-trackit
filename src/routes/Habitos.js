@@ -4,6 +4,7 @@ import { BsPlus } from "react-icons/bs";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
+import TodayContext from "../contexts/TodayContext";
 import Header from "../components/Header";
 import HabitForm from "../components/HabitForm";
 import HabitsContainer from "../components/HabitsContainer";
@@ -14,9 +15,10 @@ import Habit from "../components/Habit";
 import HabitLoader from "../components/HabitLoader";
 import errorHandler from "../utils/errorHandler";
 
-export default function Habitos({ setToday }) {
+export default function Habitos() {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const { setToday } = useContext(TodayContext);
   const [isLoading, setIsLoading] = useState(false);
   const [displayHabitForm, setDisplayHabitForm] = useState(false);
   const [habitName, setHabitName] = useState("");

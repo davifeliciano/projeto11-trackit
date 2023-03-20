@@ -16,7 +16,7 @@ import errorHandler from "../utils/errorHandler";
 
 export default function Historico() {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [history, setHistory] = useState([]);
   const [date, setDate] = useState(null);
   const [dateHabits, setDateHabits] = useState([]);

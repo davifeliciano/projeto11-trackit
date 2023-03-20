@@ -3,7 +3,8 @@ import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 
 export default function Header() {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
+
   return (
     <HeaderContainer data-test="header">
       <h1>Trackit</h1>

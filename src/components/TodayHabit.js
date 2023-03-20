@@ -6,7 +6,7 @@ import UserContext from "../contexts/UserContext";
 import errorHandler from "../utils/errorHandler";
 
 export default function TodayHabit({ habit, setIsUpdated }) {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   function toggleDone() {
     const config = { headers: { Authorization: `Bearer ${user.token}` } };
