@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import PageContainer from "../components/PageContainer";
-import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Header from "../components/Header";
 import PageContent from "../components/PageContent";
+import Calendar from "../components/Calendar";
 import HabitsContainer from "../components/HabitsContainer";
 import HistoryHabit from "../components/HistoryHabit";
 import NavBar from "../components/NavBar";
@@ -78,14 +78,12 @@ export default function Historico() {
           <ContentHeader>
             <h2>Histórico</h2>
           </ContentHeader>
-          <CalendarContainer data-test="calendar">
-            <StyledCalendar
-              tileClassName={tileClassName}
-              onClickDay={onClickDay}
-              onChange={setDate}
-              value={date}
-            />
-          </CalendarContainer>
+          <Calendar
+            tileClassName={tileClassName}
+            onClickDay={onClickDay}
+            onChange={setDate}
+            value={date}
+          />
           <HabitsContainer>{getHistoryHabits()}</HabitsContainer>
         </Content>
       </PageContent>
@@ -102,6 +100,7 @@ const Content = styled.main`
   & p {
     font-size: 1.8rem;
     text-align: center;
+    color: ${(props) => props.theme.font};
   }
 `;
 
@@ -110,45 +109,5 @@ const ContentHeader = styled.header`
     color: ${(props) => props.theme.main};
     font-size: 2.2rem;
     font-weight: 400;
-  }
-`;
-
-const CalendarContainer = styled.div`
-  align-self: center;
-`;
-
-const StyledCalendar = styled(Calendar).attrs({ "data-test": "calendar" })`
-  && {
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: ${(props) => props.theme.foreground};
-    font-family: "Lexend Deca", sans-serif;
-    font-size: 1.8rem;
-  }
-
-  && button.react-calendar__tile {
-    padding: 5px;
-    aspect-ratio: 1 / 1;
-    border-radius: 100%;
-    background-clip: content-box;
-    user-select: none;
-  }
-
-  && button.react-calendar__tile--now {
-    border: 2px solid ${(props) => props.theme.main};
-    background-color: transparent;
-  }
-
-  && button.react-calendar__tile.done {
-    background-color: ${(props) => props.theme.done};
-  }
-
-  && button.react-calendar__tile.not-done {
-    background-color: ${(props) => props.theme.notDone};
-  }
-
-  && button.react-calendar__tile.react-calendar__tile--active {
-    background-color: ${(props) => props.theme.main};
   }
 `;
